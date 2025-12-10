@@ -21,7 +21,7 @@ Deep generative models have become essential due to how they address the shortco
 
 At the center of the scvi-tools ecosystem, as the name implies, is scVI: a deep variational model that is customized to the characteristics of scRNA-seq count data. This model is built upon a variational autoencoder, which encodes each cell’s high-dimensional expression profile into a low-dimensional latent space. After compression, a decoder then reconstructs the data using a probability distribution that reflects the high variability in gene expression counts (Lopez et al., 2018). More specifically, scVI captures the inherent biological variability by modeling gene expression through a negative binomial distribution (Lopez et al., 2018). In addition, this tool filters out technical effects, including but not limited to batch differences, sequencing depth, and donor cell-specific noise. The resulting latent space after this process serves as a denoised representation of a cell's identity and can often reveal cellular structures that are not originally visible in the raw data.
 ![image](scvi_architecture.png)
-Figure credit: (Lopez et al., 2018)
+Figure credit: Lopez et al., 2018
 
 Considering scVI’s efficacy for modeling noise, it serves as a strong foundation for spatial models, as ST datasets are especially susceptible to noise, contamination, and sparsity, as previously described. The algorithms to generate latent embeddings help researchers take into account underlying biological patterns that would otherwise be masked. Furthermore, these embeddings support a wide range of downstream tasks that are critical for the spatial analysis workflow, like normalization, integration, and differential expression testing. 
 
@@ -30,7 +30,7 @@ However, scVI on its own serves as a robust foundation for interpreting ST data,
 ## ResolVI Architecture
 ResolVI builds upon the probabilistic framework of scVI by introducing a more advanced generative model that accounts for spatial structure and transcript-level noise. Spatial data violates an inherent assumption made by scVI about single-cell omics data, which is that all observed counts originate from the cell being profiled. Leaks across segmentation boundaries between neighboring cells and background RNA transcripts introduce contamination in spatial assays that ResolVI aims to resolve. To accomplish this, ResolVI employs a mixture-based formulation to enable the model to separate true biological signals from spatial noise: 
 ![image](resolvi_mixture.png)
-Figure credit: (Ergen & Yosef, 2025)
+Figure credit: Ergen & Yosef, 2025
 
 ResolVI begins with the latent cell representation derived from scVI’s encoder – this captures the underlying biological state. The latent embedding is then integrated with spatial information captured by ST platforms, which includes distances between cells and cell boundaries defined by segmentation algorithms. These spatial features allow ResolVI to predict the contributions from each transcript compartment to the observed counts. More specifically, the underlying true expression is modeled through a negative binomial distribution, and the neighbor diffusion and background expression are modeled through a Poisson distribution, which is applied to a spatial decay function for computing neighbor diffusion and a gene-specific ambience profile for background expression (Ergen & Yosef, 2025). Informed by these priors, ResolVI uses variational inference to reconstruct the corrected expression matrix that reflects the most probable biological signal, producing a much clearer view of the sample’s true tissue organization.
 
@@ -41,7 +41,7 @@ The neural network architecture implements this framework through three modules:
 
 To then generate the final output, the model uses the mixture model highlighted earlier to predict true, corrected expression counts from the observed counts, diffusion amount, and background.
 ![image](resolvi_architecture.png)
-Figure credit: (Ergen & Yosef, 2025)
+Figure credit: Ergen & Yosef, 2025
 
 ## Modern Applications
 Today, deep generative models from the scvi-tools ecosystem are already embedded in real ST workflows. scVI in particular is now a backbone of many scRNA-seq pipelines (Lopez et al., 2018). For example, it is being used currently to decipher the tumor microenvironment, correct segmentation errors in dense tissue, and harmonize sparse spatial data with single-cell references, amongst a variety of other applications. First, in studying cancer samples, the boundary between tumor and immune cells is unclear. Dead tumor cells release RNA, which makes nearby T-cells look like they are expressing tumor markers. To address this issue, scVI can learn the distinct latent signature of a T-cell versus that of a tumor cell so that the model knows what should be there and what should not (Lopez et al., 2018). ResolVI, similarly, differentiates the signal that we are looking for from other background and neighboring signals on a more complete, spatially-informed level (Ergen & Yosef, 2025). This allows us to computationally process and clean the borders of tumors. As a result, this gives an insight into rare and transitional immune states that are driven by spatial organization and may have been previously hidden by noise.
