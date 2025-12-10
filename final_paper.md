@@ -58,4 +58,17 @@ Additionally, current approaches often model tissue as a “stack of 2D images,�
 Finally, applying these frameworks is computationally expensive. Although scvi-tools supports transfer learning, resolVI models are not cross-applicable between different tissue samples. Developing a ResolVI-like model that can be pre-trained on an expensive, diverse set of tissue/patient data would be a massive step, with high cost upfront, but much better efficiency for future use, enabling pathologists to better identify spatially-dependent tissues like tumors in real time.
 
 ## Conclusion
-Together, scVI and ResolVI illustrate the applicability of deep learning-based frameworks in processing noisy, contaminated spatial transcriptomics data into interpretable, coordinate-specific counts that represent true biological variation. scVI provides a scalable encoder architecture that generates a latent space to capture underlying cell states, while ResolVI provides transcript-level, spatially informed denoising to correct for spatial noise. However, the limitations of these current approaches reveal the need for a new generation of spatial analysis tools – ones designed to make high-resolution spatial insights that are robust enough to make deeper insights into the complex, dynamic nature of tissue environments within research and clinical settings. 
+Together, scVI and ResolVI illustrate the applicability of deep learning-based frameworks in processing noisy, contaminated spatial transcriptomics data into interpretable, coordinate-specific counts that represent true biological variation. scVI provides a scalable encoder architecture that generates a latent space to capture underlying cell states, while ResolVI provides transcript-level, spatially informed denoising to correct for spatial noise. However, the limitations of these current approaches reveal the need for a new generation of spatial analysis tools – ones designed to make high-resolution spatial insights that are robust enough to make deeper insights into the complex, dynamic nature of tissue environments within research and clinical settings.
+
+## Works Cited
+Agarwal, D., Wang, J. & Zhang, N. R. Data denoising and post-denoising corrections in single cell RNA sequencing. *Statistical Science* **35**, 112–128 (2020). https://doi.org/10.1214/19-STS7560  
+
+Lopez, R., Regier, J., Cole, M. B. *et al.* Deep generative modeling for single-cell transcriptomics. *Nature Methods* **15**, 1053–1058 (2018). https://doi.org/10.1038/s41592-018-0229-2  
+
+Ergen, C. & Yosef, N. ResolVI – addressing noise and bias in spatial transcriptomics. *bioRxiv* (2025). https://doi.org/10.1101/2025.01.20.634005  
+
+Gayoso, A., Steier, Z., Lopez, R. *et al.* Joint probabilistic modeling of single-cell multi-omic data with totalVI. *Nature Methods* **18**, 272–282 (2021). https://doi.org/10.1038/s41592-020-01050-x  
+
+Zeira, R., Land, M., Strzalkowski, A. & Raphael, B. J. Alignment and integration of spatial transcriptomics data. *Nature Methods* **19**, 567–575 (2022). https://doi.org/10.1038/s41592-022-01459-6  
+
+Gayoso, A., Weiler, P., Lotfollahi, M. *et al.* Deep generative modeling of transcriptional dynamics for RNA velocity analysis in single cells. *Nature Methods* **21**, 50–59 (2024). https://doi.org/10.1038/s41592-023-01994-w
